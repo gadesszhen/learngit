@@ -1,0 +1,205 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class zzException extends Exception{
+	public zzException(String msg) {
+		super(msg);
+	}
+}
+
+public class zzFirst {
+	public static void add(ArrayList<Students> stu)   //添加学生信息
+	{
+			int a = 1;
+			Scanner in =new Scanner(System.in);
+			Students s = new Students();
+
+			
+				System.out.println("input id:");
+				String id = in.nextLine();
+				s.setID(id);
+				System.out.println("input Name:");
+				String Name = in.nextLine();
+				s.setName(Name);
+				System.out.println("input score");
+				int score = in.nextInt();
+				s.setScore(score);
+				stu.add(s);
+				
+				
+			
+	}
+	public static void delete(ArrayList<Students> stu)   //删除学生信息
+	{
+		Scanner in =new Scanner(System.in);
+		Students s = new Students();
+		System.out.println("Please input id you want to delete:");
+		String a = in.nextLine();
+		int index=0;
+		for(int i=0;i<stu.size();i++)
+		{
+			s = stu.get(i);
+			if(s.getID().equals(a))
+			{
+				index=i;
+				break;
+			}
+		}
+		stu.remove(index);
+	}
+	public static void revise(ArrayList<Students> stu) {    //修改学生信息
+		Scanner in =new Scanner(System.in);
+		Students s = new Students();
+		int index = 0;
+		System.out.println("Please input id you want to revise:");
+		String a = in.nextLine();
+		for(int i=0;i<stu.size();i++)
+		{
+			s = stu.get(i);
+			if(s.getID().equals(a))
+			{
+				System.out.println("input id:");
+				String id = in.nextLine();
+				s.setID(id);
+				System.out.println("input Name:");
+				String Name = in.nextLine();
+				s.setName(Name);
+				System.out.println("input score");
+				int score = in.nextInt();
+				s.setScore(score);
+				break;
+			}
+		}
+	}
+	public static void search(ArrayList<Students> stu) {   //查找学生信息
+		System.out.println("Please input id you want to search:");
+		Scanner in =new Scanner(System.in);
+		String a = in.nextLine();
+		int index = 0;
+		Students s = new Students();
+		for(int i=0;i<stu.size();i++)
+		{
+			s = stu.get(i);
+			if(s.getID().equals(a))
+			{
+				System.out.println("His name is:"+s.getName());
+				System.out.println("His score is:"+s.getScore());
+			}
+		}
+	}
+	public static void sort(ArrayList<Students> stu){    //对学生信息进行排序
+		int i = 0;
+		int j = 1;
+		int index = 0;
+		Students s = new Students();
+		for( i=0,j=1;j<stu.size();i++,j++)
+		{
+			index = 0;
+			if(stu.get(i).getScore()<stu.get(j).getScore())
+			{
+				s.setID(stu.get(i).getID());
+				s.setName(stu.get(i).getName());
+				s.setScore(stu.get(i).getScore());
+				stu.get(i).setID(stu.get(j).getID());
+				stu.get(i).setName(stu.get(j).getName());
+				stu.get(i).setScore(stu.get(j).getScore());
+				stu.get(j).setID(s.getID());
+				stu.get(j).setName(s.getName());
+				stu.get(j).setScore(s.getScore());
+				index=1;
+			}
+			if(j==stu.size()-1)
+			{
+				if(index==1)
+				{
+					i = -1;
+					j = 0;
+				}
+				else
+					break;
+			}
+		}
+		System.out.println("ID   Name  Score");
+		for( i=0;i<stu.size();i++)
+		{
+			System.out.println(stu.get(i).getID()+"   "+stu.get(i).getName()+"   "+stu.get(i).getScore());
+		}
+	}
+	public static void main(String[] args)  throws zzException{   //主方法
+		// TODO Auto-generated method stub
+			ArrayList<Students> stu = new ArrayList<>();
+			while(true) {                                         //打印菜单
+			System.out.println("Press 1 to add");
+			System.out.println("press 2 to delete");
+			System.out.println("press 3 to revise");
+			System.out.println("press 4 to search");
+			System.out.println("press 5 to sort");
+			System.out.println("press 0 to exit");
+			System.out.println("please enter your number:");
+			Scanner in =new Scanner(System.in);
+			String key = in.nextLine();
+			if(!(key.equals('1')||key.equals('2')||key.equals('3')||key.equals('4')||key.equals('5')||key.equals('0')))throw new zzException("only inout 0~5");
+			switch(key)                   //分支菜单
+			{
+			case "1":
+				add(stu);
+				break;
+			case "2":
+				delete(stu);
+				break;
+			case "3":
+				revise(stu);
+				break;
+			case "4":
+				search(stu);
+				break;
+			case "5":
+				sort(stu);
+				break;
+			case "0":
+				System.exit(0);
+			}
+			}
+	}
+
+}
+
+class Students {
+	private String id;
+	private String Name;
+	private int score;
+	public Students(){
+		
+	}
+	public Students(String id,String name,int score){
+		super();
+		this.id=id;
+		this.Name=Name;
+		this.score=score;
+	}
+	public void setID(String id)
+	{
+		this.id=id;
+	}
+	public String getID()
+	{
+		return id;
+	}
+	public void setName(String Name)
+	{
+		this.Name=Name;
+	}
+	public String getName()
+	{
+		return Name;
+	}
+	public void setScore(int score)
+	{
+		this.score=score;
+	}
+	public int getScore()
+	{
+		return score;
+	}
+}
+
